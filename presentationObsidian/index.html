@@ -87,6 +87,17 @@
       <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
+<style>
+	.blue-back {
+		color: red;
+		 background-color: blue;
+	}
+	.with-border {
+		border: 1px solid red;
+	}
+</style>
+
+
 #### Un caillou dans une galaxie 
 <img src="assets/galaxyLogo.png" alt="" style="object-fit: scale-down">
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
@@ -97,7 +108,8 @@
 # introduction
 
 [landing](https://obsidian.md)
-et c'est le drame !
+et c'est le <span class="blue-back">drame !</span>
+
 </div>
 
 <div class="" style="position: absolute; left: 5%; top: 30%; height: 55%; width: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
@@ -132,7 +144,7 @@ et c'est le drame !
 <img src="assets/markdown.png" alt="" style="object-fit: scale-down">
 
 
-# ++
+# <span class="blue-back">++ </span> 
 
 basiquement pas wysiwyg
 
@@ -146,17 +158,147 @@ basiquement pas wysiwyg
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
-Général
+# MD editor
+
+- hybrid MD mode : deux modes d'édition (le livre) selon "source mode" ou non
+	- source mode : sous `...`, toggle plus ou moins de détails
+- reading view : le crayon
+	- affichage lisible
+
+<img src="assets/sourceReading.png" alt="" style="object-fit: scale-down">
+
+- vertical split: split right et ensuite "crayon" (command-click sur le livre)
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Bien commencer
+
+avec un fil rouge<!-- .element: style="color: red" -->
+
+- feuille de temps et activités
+- présentations
+- dessins
+- charts
+
+trouver les bons plugins <!-- .element: style="background: blue" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Feuille de temps et activités
+
+- [tasks](https://github.com/obsidian-tasks-group/obsidian-tasks) : base pour les activités
+<img src="assets/tasks_plugin_acme.png" alt="" style="width: 400px; object-fit: fill">
+
+
+- [dataview](https://github.com/blacksmithgu/obsidian-dataview) : vault as a database via API, JavaScript
+
+- [journal](https://github.com/srg-kostyrko/obsidian-journal) : organiser ses notes
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# tasks (plugin)
+
+<img src="assets/tasks.png" alt="" style="object-fit: scale-down">
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# tasks (plugin)
+
+- commencer petit
+
+````markdown
+   ```tasks
+
+   ```
+````
+
+<img src="assets/tasks_plugin_mini.png" alt="" style="object-fit: scale-down">
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# tasks (plugin)
+- filtrage
+ 
+````markdown
+```tasks
+(tags includes AM) OR (tags includes PM)
+short mode
+hide edit button
+hide backlink
+```
+````
+
+<img src="assets/tasks_plugin_filter.png" alt="" style="object-fit: scale-down">
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# dataview (plugin)
+
+
+````markdown
+```dataview
+TASK
+WHERE contains(tags, "#AM") OR contains(tags, "#PM")
+GROUP BY file.link
+```
+````
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# dataviewjs (plugin)
+
+````markdown
+```dataviewjs
+
+function minutes(str) {
+  let items = str.split(" ");
+  let startItems = items[0].split(":"),
+      endItems = items[1].split(":");
+  let result = +endItems[0] * 60 + +endItems[1] - (+startItems[0] * 60 + +startItems[1])
+  return result
+};
+function hm(minutes) {
+  return String(Math.floor(minutes / 60)).padStart(2, "0") + ":" + String(minutes % 60).padStart(2, "0")
+};
+
+let tasks = dv.pages()
+  .where(p => p.file && p.file.path && !p.file.path.includes("templates/"))
+  .file.tasks.filter(t => ['#AM', '#PM'].some(tag => t.tags.includes(tag)));
+
+let tableData = [];
+for (let group of tasks.groupBy(t => t.path)) {
+  let pathItems = group.key.split("/")
+  let date = pathItems[pathItems.length - 1].split(".")[0]
+  let dailies = group.rows
+  let am = dailies[0]
+  let pm = dailies[1]
+  let totalMinutes = minutes(am.text) + minutes(pm.text)
+  let duration = hm(totalMinutes)
+  let details = am.text + " " + pm.text
+  tableData.push([date, duration, details])
+}
+
+dv.table(["Date", "Durée", "Détails"], tableData)
+```
+````
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# journal (plugin)
+
+````markdown
+
+````
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Général
+
 - [advanced slides](https://github.com/MSzturc/obsidian-advanced-slides)
 - [git](https://github.com/Vinzent03/obsidian-git) just do git!
 - [excalidraw](https://github.com/zsviczian/obsidian-excalidraw-plugin)
-
-
-## Feuille de temps et activités
-
-- [tasks](https://github.com/obsidian-tasks-group/obsidian-tasks) : base pour les activités
-- [journal](https://github.com/srg-kostyrko/obsidian-journal)
-- [dataview](https://github.com/blacksmithgu/obsidian-dataview) : vault as a database via API, with JavaScript. Can be hard at start
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 ## WoW AH
 
